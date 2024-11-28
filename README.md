@@ -1,106 +1,85 @@
-# .NET Samples
+# .NET Home
 
-![Markdownlint](https://github.com/dotnet/samples/workflows/Markdownlint/badge.svg) [![Snippets 5000](https://github.com/dotnet/samples/actions/workflows/build-validation.yml/badge.svg)](https://github.com/dotnet/samples/actions/workflows/build-validation.yml) [![target supported version](https://github.com/dotnet/samples/actions/workflows/version-sweep.yml/badge.svg)](https://github.com/dotnet/samples/actions/workflows/version-sweep.yml)
+This repository is a starting point to learn about and engage in [.NET](https://dot.net) and .NET open source projects.
 
-This repo contains all the sample code that is part of any topic under
-the .NET documentation. There are several different projects that
-are organized in sub-folders. These sub-folders are organized similarly
-to the organization of the docs for .NET. Some of the articles will have more than one sample associated with them.
+This repository is not an official .NET or .NET Framework support location, however, we will respond to issues filed here as best we can. Please file .NET product issues at main project repos below.
 
-The content team tracks issues for .NET documentation in the [dotnet/docs](https://github.com/dotnet/docs) and [dotnet/dotnet-api-docs](https://github.com/dotnet/dotnet-api-docs) repositories. Issues are turned off on this repository. File issues against existing samples and suggestions for new samples in those repositories. If you're not sure where, choose [dotnet/docs](https://github.com/dotnet/docs/issues). This process keeps the issues associated with the articles that explain the concepts for each sample. The best process is to file an issue from the feedback control at the bottom of each docs page:
+## In this repository
 
-- For existing samples, file the issue on the page with the sample.
-- To suggest new samples, file the issue on the index page where you want to see the new sample.
+- [.NET Framework Release Notes](releases/README.md)
+- [.NET Framework Documentation](Documentation/README.md)
+- [.NET Open Source Developer Projects](dotnet-developer-projects.md)
+- [.NET Open Source Consumer Projects](dotnet-consumer-projects.md)
+- [Free Services & Tools for Open Source .NET Projects](dotnet-free-oss-services.md)
 
-The code in this repository represents programs that demonstrate application or library scenarios. These samples often use more than one technology, feature, or toolkit. Each sample has a readme.md file that explains the sample and links to resources for more information.
+Please contribute to this repository via [pull requests](https://github.com/Microsoft/dotnet/pulls)
 
-Samples should be buildable projects. Those projects should build and
-run on the widest set of platforms possible for the given sample. In practice, that means building .NET Core-based console applications where possible. Samples that are specific to the web or a UI framework should add those tools as needed. Examples include web applications, mobile apps, WPF or Windows Forms apps, and so on.
+## Finding .NET Open Source Projects
 
-We are working toward having a CI system in place for all code. When you make any updates to samples, make sure each update is part of a buildable
-project. Ideally, add tests for correctness on samples as well.
+Here are some excellent community-maintained lists of projects & libraries:
 
-## Building a sample
+- [Awesome .NET](https://github.com/quozd/awesome-dotnet)
+- [Awesome .NET MAUI](https://github.com/jsuarezruiz/awesome-dotnet-maui)
+- [Awesome Blazor](https://github.com/AdrienTorris/awesome-blazor)
 
-Build any .NET Core sample using the .NET Core CLI, which is installed with [the .NET Core SDK](https://www.microsoft.com/net/download). Then run
-these commands from the CLI in the directory of any sample:
+There are many projects that you can use and contribute to, some of which are listed below. Please do contribute to these projects!
 
-```console
-dotnet build
-dotnet run
-```
+### .NET
 
-These will install any needed dependencies, build the project, and run
-the project respectively.
+- [.NET (dotnet/core)](https://github.com/dotnet/core)
+- [.NET Aspire (dotnet/aspire)](https://github.com/dotnet/aspire)
+- [.NET MAUI (dotnet/maui)](https://github.com/dotnet/maui)
+- [ASP.NET Core (dotnet/aspnetcore)](https://github.com/dotnet/aspnetcore)
+- [C# (dotnet/csharplang)](https://github.com/dotnet/csharplang)
+- [Entity Framework Core (dotnet/efcore)](https://github.com/dotnet/efcore)
+- [F# (dotnet/fsharp)](https://github.com/dotnet/fsharp)
+- [ML.NET (dotnet/machinelearning)](https://github.com/dotnet/machinelearning)
+- [Roslyn Compiler Platform (dotnet/roslyn)](https://github.com/dotnet/roslyn)
+- [Windows Forms (dotnet/winforms)](https://github.com/dotnet/winforms)
+- [WPF (dotnet/wpf)](https://github.com/dotnet/wpf)
 
-Multi-project samples have instructions in their root directory in
-a `README.md` file.  
+### .NET Docs
+- [.NET docs (dotnet/docs)](https://github.com/dotnet/docs)
+- [.NET Aspire docs (dotnet/docs-aspire)](https://github.com/dotnet/docs-aspire)
+- [.NET MAUI docs (dotnet/docs-maui)](https://github.com/dotnet/docs-maui)
+- [ASP.NET Core docs (dotnet/AspNetCore.Docs)](https://github.com/dotnet/AspNetCore.Docs)
+- [Entity Framework docs (dotnet/EntityFramework.Docs)](https://github.com/dotnet/EntityFramework.Docs)
 
-Except where noted, all samples build from the command line on
-any platform supported by .NET Core. There are a few samples that are
-specific to Visual Studio and require Visual Studio 2017 or later. In
-addition, some samples show platform-specific features and will require
-a specific platform. Other samples and snippets require the .NET Framework
-and will run on Windows platforms, and will need the Developer Pack for
-the target Framework version.
+### .NET Framework
 
-## Creating new samples
+- [.NET Framework docs (dotnet/docs)](https://github.com/dotnet/docs)
+- [.NET Framework source code - read-only subset (microsoft/referencesource)](https://github.com/microsoft/referencesource)
 
-If you wish to add a code sample:
+### Xamarin
 
-1. Your sample **must be part of a buildable project**. Where possible, the projects should build on all platforms supported by .NET Core. Exceptions to this are samples that demonstrate a platform-specific feature or platform-specific tool.
+- [Xamarin iOS + macOS (xamarin/xamarin-macios)](https://github.com/xamarin/xamarin-macios)
+- [Xamarin Android (xamarin/xamarin-android)](https://github.com/xamarin/xamarin-android)
+- [Xamarin.Forms (xamarin/Xamarin.Forms)](https://github.com/xamarin/Xamarin.Forms)
+- [Mono Project](https://github.com/mono/)
 
-2. Your sample should conform to the [runtime coding style](https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md) to maintain consistency.
+### Community
 
-    - Additionally, we prefer the use of `static` methods rather than instance methods when demonstrating something that doesn't require instantiating a new object.
+Here is a short list of projects to check out:
 
-3. Your sample should include **appropriate exception handling**. It should handle all exceptions that are likely to be thrown in the context of the sample. For example, a sample that calls the [Console.ReadLine](https://docs.microsoft.com/dotnet/api/system.console.readline) method to retrieve user input should use appropriate exception handling when the input string is passed as an argument to a method. Similarly, if your sample expects a method call to fail, the resulting exception must be handled. Always handle the specific exceptions thrown by the method, rather than base class exceptions such as [Exception](https://docs.microsoft.com/dotnet/api/system.exception) or [SystemException](https://docs.microsoft.com/dotnet/api/system.systemexception).
+* [.NET for Apache Spark](https://github.com/dotnet/spark)
+* [Orleans](https://github.com/dotnet/orleans)
+* [Exceptionless](https://github.com/exceptionless/Exceptionless)
+* [Glimpse](https://github.com/Glimpse/Glimpse)
+* [JSON.NET](https://github.com/JamesNK/Newtonsoft.Json)
+* [MonoGame](https://github.com/MonoGame/MonoGame)
+* [MVVM Cross](https://github.com/MvvmCross/MvvmCross)
+* [ReactiveUI](https://github.com/reactiveui/ReactiveUI)
 
-4. If your sample builds a standalone package, you must include the runtimes used by our CI build system, in addition to any runtimes used by your sample:
+There are additional templates available for `dotnet new`. For more information, see [Available templates for dotnet new](https://github.com/dotnet/templating/wiki/Available-templates-for-dotnet-new)
 
-    - `win7-x64`
-    - `win8-x64`
-    - `win81-x64`
-    - `ubuntu.16.04-x64`
+## .NET Foundation
 
-We will have a CI system in place to build these projects shortly.
+Many .NET open source projects are part of the
+[.NET Foundation](https://www.dotnetfoundation.org/projects). Microsoft has contributed many projects, including ASP.NET Core and
+.NET Core. You may want to consider [joining the .NET Foundation](https://dotnetfoundation.org/community/).
 
-To create a sample:
+Check out the [.NET Foundation Forums](https://forums.dotnetfoundation.org/) to see what others are talking about, or start a new discussion to ask a question or make a point. 
 
-1. File an [issue](https://github.com/dotnet/docs/issues) or add a comment to an existing one that you are working on it.
-2. Write the topic that explains the concepts demonstrated in your sample (example: `docs/standard/linq/where-clause.md`).
-3. Write your sample (example: *WhereClause-Sample1.cs*).
-4. Create a *Program.cs* with a Main entry point that calls your samples. If there is already one there, add the call to your sample:
+## License
 
-    ```csharp
-    public class Program
-    {
-        public void Main(string[] args)
-        {
-            WhereClause1.QuerySyntaxExample();
-
-            // Add the method syntax as an example.
-            WhereClause1.MethodSyntaxExample();
-        }
-    }
-    ```
-
-5. Don't check in the solution file if it contains only one project.
-
-To build and run your sample:
-
-1. Go to the sample folder and build to check for errors:
-
-    ```console
-    dotnet build
-    ```
-
-2. Run your sample:
-
-    ```console
-    dotnet run
-    ```
-
-3. Add a *README.md* to the root directory of your sample.
-
-   This should include a brief description of the code, and refer people to the article that references the sample.
+This repository is licensed with the [MIT](LICENSE) license.
