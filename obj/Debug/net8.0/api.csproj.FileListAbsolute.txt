@@ -156,3 +156,5 @@ C:\belajar_dotnet\api\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrame
 C:\belajar_dotnet\api\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\belajar_dotnet\api\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\belajar_dotnet\api\bin\Debug\net8.0\System.ClientModel.dll
+C:\belajar_dotnet\api\bin\Debug\net8.0\ReadMe.dll
+C:\belajar_dotnet\api\bin\Debug\net8.0\RestSharp.dll
