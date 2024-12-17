@@ -134,6 +134,7 @@ builder.Services.AddAuthentication(options =>
 //Scope
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<CommentInterface, CommentRepo>();
+builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 
 builder.Services.AddScoped<IValidator<Stock>, StockValidator>();
 builder.Services.AddScoped<IValidator<Comment>, CommentValidator>();
@@ -141,6 +142,8 @@ builder.Services.AddScoped<IValidator<RegisterDto>, RegisterValidator>();
 builder.Services.AddScoped<IValidator<LoginDto>, LoginValidator>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IFMPService, FMPService>();
+builder.Services.AddHttpClient<IFMPService, FMPService>();
 
 
 
@@ -159,6 +162,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(x => x
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        //.WithOrigin("https://localhost:44351))
+        .SetIsOriginAllowed(origin => true));
 
 
 //for auth

@@ -41,34 +41,21 @@ namespace api.Repository
 
         public async Task<List<Comment>> GetAllAsync(QueryComment query)
         {
-            var comments = _context.Comments.AsQueryable();
+            var comments = _context.Comments.Include(a => a.AppUser).AsQueryable();
 
             if (!String.IsNullOrWhiteSpace(query.Title))
             {
                 comments = comments.Where(c => c.Title.Contains(query.Title));
             }
 
-            if (query.CreatedOn.HasValue)
+            if (!String.IsNullOrWhiteSpace(query.Symbol))
             {
-                comments = comments.Where(c => c.CreatedOn.Date == query.CreatedOn.Value.Date);
+                comments = comments.Where(s => s.Stock.Symbol == query.Symbol);
             }
 
-            switch (query.SortBy)
+            if (query.IsDescending == true)
             {
-                case commentSort.Id:
-                    comments = query.IsDescending ? comments.OrderByDescending(c => c.Id)
-                    : comments.OrderBy(c => c.Id);
-                    break;
-    
-                case commentSort.Title:
-                    comments = query.IsDescending ? comments.OrderByDescending(c => c.Title)
-                    : comments.OrderBy(c => c.Title);
-                    break;
-
-                case commentSort.CreatedOn:
-                    comments = query.IsDescending ? comments.OrderByDescending(c => c.CreatedOn)
-                    : comments.OrderBy(c => c.CreatedOn);
-                    break;
+                comments = comments.OrderByDescending(c => c.CreatedOn);
             }
 
             return await comments.ToListAsync();
@@ -76,7 +63,7 @@ namespace api.Repository
 
         public async Task<Comment?> GetyIdAsync(int id)
         {
-            return await _context.Comments.FindAsync(id);
+            return await _context.Comments.Include(a => a.AppUser).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Comment?> UpdateAsync(int id, UpdataCommentDto updataCommentDto)

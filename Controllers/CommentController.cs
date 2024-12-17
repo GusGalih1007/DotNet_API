@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Comment;
+using api.Extension;
 using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
@@ -10,6 +11,7 @@ using api.Models;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -22,11 +24,20 @@ namespace api.Controllers
         private readonly CommentInterface _commentRepo;
         private readonly IStockRepository _stockRepo;
         private readonly IValidator<Comment> _validator;
-        public CommentController(CommentInterface commentRepo, IStockRepository stockRepo, IValidator<Comment> validator)
+        private readonly UserManager<Appuser> _userManager;
+        private readonly IFMPService _fmpService;
+        public CommentController(
+            CommentInterface commentRepo,
+            IStockRepository stockRepo,
+            IValidator<Comment> validator,
+            UserManager<Appuser> userManager,
+            IFMPService fMPService)
         {
             _commentRepo = commentRepo;
             _stockRepo = stockRepo;
+            _userManager = userManager;
             _validator = validator;
+            _fmpService = fMPService;
         }
 
         [HttpGet]
@@ -63,24 +74,32 @@ namespace api.Controllers
             return Ok(comment.ToCommentDto());
         }
 
-        [HttpPost("{stockId:int}")]
-        public async Task<IActionResult> Create([FromRoute] int stockId, CreateCommentDto createComment)
+        [HttpPost("{symbol:alpha}")]
+        public async Task<IActionResult> Create([FromRoute] string symbol, [FromForm] CreateCommentDto createComment)
         {
-            if (!await _stockRepo.StockExists(stockId))
+            
+
+            var stock = await _stockRepo.GetBySymbolAsync(symbol);
+
+            if (stock == null)
             {
-                return BadRequest("Stock Does Not Exist!");
+                stock = await _fmpService.FindStockBySymbolAsync(symbol);
+                if(stock == null)
+                {
+                    return BadRequest("Stock does no exist");
+                }
+                else
+                {
+                    await _stockRepo.CreateAsync(stock);
+                }
             }
 
-            var validationResult = await _validator.ValidateAsync(createComment.CreateCommentDto(stockId));
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
 
-            if (!validationResult.IsValid)
-            {
-                validationResult.AddToModelState(this.ModelState);
+            var commentModel = createComment.CreateCommentDto(stock.Id);
 
-                return BadRequest(ModelState);
-            }
-
-            var commentModel = createComment.CreateCommentDto(stockId);
+            commentModel.AppUserId = appUser.Id;
 
             await _commentRepo.CreateAsync(commentModel);
 
@@ -89,7 +108,7 @@ namespace api.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdataCommentDto updataComment)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] UpdataCommentDto updataComment)
         {
 
             var validationResult = await _validator.ValidateAsync(updataComment.UpdateCommentDto(id));

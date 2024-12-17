@@ -37,9 +37,9 @@ namespace api.Controllers
         {
             var stocks = await _stockRepo.GetAllAsync(query);
 
-            var stockDto = stocks.Select(s => s.ToStockDto());
+            var stockDto = stocks.Select(s => s.ToStockDto()).ToList();
 
-            return Ok(stocks);
+            return Ok(stockDto);
         }
 
         [HttpGet("{id:int}")]
@@ -55,7 +55,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockDto)
+        public async Task<IActionResult> Create([FromForm] CreateStockRequestDto stockDto)
         {
             var result = await _validator.ValidateAsync(stockDto.ToStockFromCreateDto());
             if (!result.IsValid)
@@ -75,7 +75,7 @@ namespace api.Controllers
         [HttpPut]
         [Route("{id:int}")]
 
-        public async Task<IActionResult> update([FromRoute] int id, [FromBody] UpdateStockDto updateDto)
+        public async Task<IActionResult> update([FromRoute] int id, [FromForm] UpdateStockDto updateDto)
         {
             var result = await _validator.ValidateAsync(updateDto.TOStockFromUpdateDto());
     

@@ -37,7 +37,7 @@ namespace api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        public async Task<IActionResult> Register([FromForm] RegisterDto registerDto)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace api.Controllers
         //login 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDto loginDto)
+        public async Task<IActionResult> Login([FromForm]LoginDto loginDto)
         {
             var validateResult = await _loginValidate.ValidateAsync(loginDto);
             if (!validateResult.IsValid)
